@@ -25,7 +25,7 @@ export default function Navbar({ user, setUser }) {
     <div className="navbar-container">
       {/* Left */}
       <div className="nav-search-container">
-        <img src={ICON} className="navbar-logo" alt="navbar-logo" />
+        <img src="https://smartdev.vn/wp-content/uploads/2020/12/logo.svg" className="navbar-logo" alt="navbar-logo" />
         <div className="nav-search-container-input-bar">
           <FaSearch color="#ccc" />
           <input className="nav-search-text" placeholder="Search on Facebook" />

@@ -13,13 +13,14 @@ function App() {
         <Navbar user={user} setUser={setUser} />
 
         <Switch>
-          <Route path="/chat">
+      
+          <Route exact path="/">
+            <LoginScreen user={user} setUser={setUser} />
+          </Route>
+          <Route exact path="/chat">
             <ChatScreen user={user} setUser={setUser} />
           </Route>
 
-          <Route path="/">
-            <LoginScreen user={user} setUser={setUser} />
-          </Route>
         </Switch>
       </Router>
     </div>

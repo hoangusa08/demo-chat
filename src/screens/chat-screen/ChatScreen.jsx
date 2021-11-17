@@ -18,7 +18,7 @@ export default function ChatScreen({ setUser, user }) {
   React.useEffect(() => {
     // get from localstorage
     const user = JSON.parse(localStorage.getItem("user"));
-
+    console.log("abfehfb");
     // if no user -> redirect
     if (user) setUser(user);
     else history.push("/");

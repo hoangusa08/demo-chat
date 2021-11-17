@@ -8,8 +8,9 @@
 
 .navbar-logo {
   height: 4vh;
-  width: 4vh;
+  width: 10vh;
   border-radius: 50%;
+  color: blue;
 }
 
 .navbar-logo-search {

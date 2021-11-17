@@ -94,6 +94,7 @@ export default function LoginScreen({ setUser }) {
 
     if (user) {
       setUser(user);
+      console.log("abc");
       history.push("/chat");
     }
   }, [history, setUser]);
@@ -112,7 +113,9 @@ export default function LoginScreen({ setUser }) {
         <input type="password" placeholder="Strong passowrd" ref={password} />
       </div>
 
-      <button onClick={register} className="register-button">Register</button>
+      <button onClick={register} className="register-button">
+        Register
+      </button>
       <button onClick={login}>Login</button>
     </div>
   );
