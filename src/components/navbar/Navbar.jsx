@@ -10,7 +10,6 @@ import {
   FaTv,
   FaUsers,
 } from "react-icons/fa";
-import ICON from "../../assets/icon.png";
 
 export default function Navbar({ user, setUser }) {
   let history = useHistory();
