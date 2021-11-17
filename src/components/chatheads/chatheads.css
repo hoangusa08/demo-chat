@@ -1,0 +1,61 @@
+.chat-head-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5vh;
+  padding: 1vh;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.user-profile-pic-text {
+  font-size: 3.5vh;
+  text-transform: capitalize;
+}
+
+.chat-head-item:hover {
+  background-color: rgb(112, 110, 110, 0.2);
+}
+
+.user-profile-pic-container {
+  width: 4vh;
+  height: 4vh;
+  background-color: #ccc;
+  display: flex;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1vh;
+  padding: 0.5vh;
+}
+
+.conversations-header {
+  font-weight: bold;
+  font-size: 2.5vh;
+  margin-bottom: 1vh;
+}
+
+.chat-heads-search {
+  width: 95%;
+  margin-bottom: 2vh;
+}
+
+.conv-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.conv-header-container svg {
+  margin-left: 0.5vh;
+  color: white;
+  background-color: rgb(112, 110, 110, 0.2);
+  padding: 0.8vh;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.chat-heads-container {
+  overflow-y: scroll;
+  height: 80vh;
+  padding-right: 10px;
+}
