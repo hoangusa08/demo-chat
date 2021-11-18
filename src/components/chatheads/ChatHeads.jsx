@@ -1,8 +1,10 @@
 import React from "react";
+
 import { FaEdit, FaEllipsisH, FaVideo } from "react-icons/fa";
+import ChatHeaderItem from "./ChatHeaderItem";
 import "./chatheads.css";
 
-export default function ChatHeads({ items, setReceiver }) {
+export default React.memo(function useChatHeads({ items, setReceiver, user }) {
   return (
     <div>
       <div className="conv-header-container">
@@ -16,18 +18,14 @@ export default function ChatHeads({ items, setReceiver }) {
       <input className="chat-heads-search" placeholder="Search in Messenger" />
       <div className="chat-heads-container">
         {items.map((obj, i) => (
-          <div
+          <ChatHeaderItem
+            receiver={obj}
+            user={user}
+            setReceiver={setReceiver}
             key={i}
-            className="chat-head-item"
-            onClick={() => setReceiver(obj)}
-          >
-            <div className="user-profile-pic-container">
-              <p className="user-profile-pic-text">{obj.email[0]}</p>
-            </div>
-            <p>{obj.email}</p>
-          </div>
+          />
         ))}
       </div>
     </div>
   );
-}
+});

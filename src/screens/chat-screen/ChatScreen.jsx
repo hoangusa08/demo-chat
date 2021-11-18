@@ -18,13 +18,12 @@ export default function ChatScreen({ setUser, user }) {
   React.useEffect(() => {
     // get from localstorage
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log("abfehfb");
     // if no user -> redirect
     if (user) setUser(user);
     else history.push("/");
   }, [history, setUser]);
 
-  //lay tat ca nguoi dung trong he trong 
+  //lay tat ca nguoi dung trong he trong
   React.useEffect(() => {
     if (!user) return;
 
@@ -42,7 +41,11 @@ export default function ChatScreen({ setUser, user }) {
     <div className="chat-screen">
       {/* ChatHeads */}
       <div className="half-screen chat-heads">
-        <ChatHeads items={chatHeads} setReceiver={setReceiver} />
+        <ChatHeads
+          items={chatHeads}
+          setReceiver={setReceiver}
+          user={user}
+        />
       </div>
 
       {/* Conversation */}

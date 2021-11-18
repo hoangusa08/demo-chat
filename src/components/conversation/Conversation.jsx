@@ -18,6 +18,7 @@ import {
 export default function Conversation({ receiver, user }) {
   const [conversationId, setConversationId] = useState(null);
   const [messages, setMessages] = useState([]);
+  const [reciverHasRead, setReciverHasRead] = useState(true);
 
   const currentMessage = useRef(null);
   const chatBodyRef = useRef(null);
@@ -29,7 +30,6 @@ export default function Conversation({ receiver, user }) {
     const myMessage = {
       message: currentMessage.current.value,
       uid: user.uid,
-      
     };
 
     // add and save message to firestore
@@ -41,11 +41,13 @@ export default function Conversation({ receiver, user }) {
       const docData = docSnap.data();
       await updateDoc(conversationRef, {
         messages: [...docData.messages, myMessage],
+        reciverHasRead: false,
       });
     } else {
       // create a new conversation
       await setDoc(doc(db, "conversations", conversationId), {
         messages: [myMessage],
+        reciverHasRead: false,
       });
     }
 
@@ -58,8 +60,8 @@ export default function Conversation({ receiver, user }) {
 
     let myConvId;
 
-    if (receiver.uid > user.uid) myConvId = receiver.uid + user.uid;
-    else myConvId = user.uid + receiver.uid;
+    if (receiver.uid > user.uid) myConvId = receiver.uid + ":" + user.uid;
+    else myConvId = user.uid + ":" + receiver.uid;
 
     setConversationId(myConvId);
   }, [receiver, user]);
@@ -72,9 +74,10 @@ export default function Conversation({ receiver, user }) {
       doc(db, "conversations", conversationId),
       (doc) => {
         const currentData = doc.data();
-
-        if (currentData?.messages.length > 0) setMessages(currentData.messages);
-        else setMessages([]);
+        if (currentData?.messages.length > 0) {
+          setMessages(currentData.messages);
+          setReciverHasRead(currentData.reciverHasRead);
+        } else setMessages([]);
       }
     );
 
@@ -97,8 +100,20 @@ export default function Conversation({ receiver, user }) {
   // top scroll after new message
   React.useEffect(() => {
     scollToBottomOfChat();
-    console.log(messages);
   }, [messages, chatBodyRef]);
+
+  const userClickedInput = () => {
+    if (
+      messages[messages.length-1].uid !== user.uid &&
+      reciverHasRead === false
+    ) {
+      const conversationRef = doc(db, `conversations/${conversationId}`);
+      updateDoc(conversationRef, {
+        messages: messages,
+        reciverHasRead: true,
+      });
+    }
+  };
 
   return (
     <div>
@@ -147,7 +162,12 @@ export default function Conversation({ receiver, user }) {
             <FaImage />
             <FaStickyNote />
             <div className="input-message">
-              <input placeholder="Hi.." ref={currentMessage} onKeyPress={handleEnterKeyPressDown} />
+              <input
+                placeholder="Hi.."
+                ref={currentMessage}
+                onKeyPress={handleEnterKeyPressDown}
+                onFocus={userClickedInput}
+              />
             </div>
             <button onClick={sendMessage}>Send</button>
             <FaThumbsUp />
